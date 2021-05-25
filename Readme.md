@@ -28,6 +28,8 @@ Course [Website](https://btholt.github.io/complete-intro-to-react-v6/)
 
 --- update .eslintrc.json ---
 
+>>> npm install -D eslint-plugin-react-hooks@4.2.0
+# consist of best pactices made by react team for react hooks
 ```
 
 Don't forget to set `package.json`
@@ -99,4 +101,15 @@ Just look for parcel version `parcel`.
     ]
   ]
 }
+```
+
+---
+
+.eslintrc
+
+### Best pactices thing
+
+```powershell
+# npm install -D eslint-plugin-react-hooks@4.2.0
+"extends": [ "plugin:react-hooks/recommended"]
 ```

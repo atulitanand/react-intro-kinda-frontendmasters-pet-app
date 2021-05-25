@@ -1,6 +1,7 @@
 // import React from "react";
 import ReactDOM from "react-dom";
 import Pet from "./Pet";
+import SearchParams from "./SearchParams";
 
 const animals = [
   {
@@ -23,12 +24,17 @@ const animals = [
 const App = () => {
   return (
     <div>
-      <h1>Adopt Me!</h1>
-      {animals.map((animal) => (
-        <Pet props={animal} />
-      ))}
+      <h1>Adopt me!!!</h1>
+      <SearchParams />
     </div>
   );
 };
 
 ReactDOM.render(<App />, document.querySelector("#root"));
+
+// <div>
+//   <h1>Adopt Me!</h1>
+//   {animals.map((animal) => (
+//     <Pet props={animal} />
+//   ))}
+// </div>
