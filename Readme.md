@@ -113,3 +113,34 @@ Just look for parcel version `parcel`.
 # npm install -D eslint-plugin-react-hooks@4.2.0
 "extends": [ "plugin:react-hooks/recommended"]
 ```
+
+## React development [Environment](https://btholt.github.io/complete-intro-to-react-v6/react-dev-tools)
+
+- set NODE_ENV=development echo $NODE_ENV,
+  parcel gives all that nice messages of errors automatically but with webpack we need to set that up
+
+- NODE_ENV=production is 4 times faster than development
+
+you can set up env variables in start script or dev script
+
+```json
+"start":  "NODE_ENV=development parcel src/index.html",
+```
+
+## Set 'scrict' mode
+
+just let you use only new features, important to let old unsafe stuff phase out
+
+```jsx
+import { StrictMode }from react
+
+Wrap <App/> component in <StrictMode></StrictMode>
+```
+
+---
+
+## React Dev tools
+
+- [Chrome](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en)
+- [Firefox](https://addons.mozilla.org/en-US/firefox/addon/react-devtools/)
+- [Edge](https://microsoftedge.microsoft.com/addons/detail/react-developer-tools/gpphkfbcpidddadnkolkpfckpihlkkil)

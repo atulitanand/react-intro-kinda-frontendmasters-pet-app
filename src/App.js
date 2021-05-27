@@ -2,6 +2,7 @@
 import ReactDOM from "react-dom";
 import Pet from "./Pet";
 import SearchParams from "./SearchParams";
+import { StrictMode } from "react";
 
 const animals = [
   {
@@ -30,7 +31,12 @@ const App = () => {
   );
 };
 
-ReactDOM.render(<App />, document.querySelector("#root"));
+ReactDOM.render(
+  <StrictMode>
+    <App />
+  </StrictMode>,
+  document.querySelector("#root")
+);
 
 // <div>
 //   <h1>Adopt Me!</h1>

@@ -1,18 +1,56 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import Pet from "./Pet";
+import useBreedList from "./useBreedList";
+import Results from "./Results";
 
-const ANIMALS = ["Rat", "Cat", "Dog", "Ostrich", "Rabbit", "Spider", "Poodle"];
-const BREED = [];
+const ANIMALS = ["dog", "rabbit", "reptile", "bird"];
 const SearchParams = () => {
-  const [location, setLocation] = useState("Seattle, WA");
+  const [location, setLocation] = useState("");
 
-  const [animal, setAnimal] = useState(ANIMALS[0]);
-  const [breed, setBreed] = useState();
+  const [animal, setAnimal] = useState("");
+  const [breed, setBreed] = useState("");
+
+  const [pets, setPets] = useState([]);
+
+  const [breeds] = useBreedList(animal);
+  useEffect(() => {
+    requestPets();
+  }, []);
+
+  async function requestPets() {
+    const attributes = (function () {
+      let attr = String();
+      if (animal) {
+        attr += `animal=${animal}`;
+      }
+      if (location) {
+        attr = attr.concat(`&location=${location}`);
+      }
+      if (breed) {
+        attr = attr.concat(`&breed=${breed}`);
+      }
+      console.log("attr", attr);
+      return attr;
+    })();
+    const url = `http://pets-v2.dev-apis.com/pets?${attributes}`;
+    const res = await fetch(url);
+    const json = await res.json();
+    setPets(json.pets);
+    console.log(json.pets);
+  }
+
   return (
     <div className="search-params">
-      <form>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          requestPets();
+        }}
+      >
         <label htmlFor="location">
           Location
           <input
+            placeholder="Seattle, WA"
             id="location"
             value={location}
             onChange={(e) => setLocation(e.target.value)}
@@ -41,7 +79,7 @@ const SearchParams = () => {
             onBlur={(e) => setBreed(e.target.value)}
           >
             <option />
-            {BREED.map((breed) => (
+            {breeds.map((breed) => (
               <option value={breed} key={breed}>
                 {breed}
               </option>
@@ -50,6 +88,9 @@ const SearchParams = () => {
         </label>
         <button>Submit</button>
       </form>
+      <div>
+        <Results pets={pets} />
+      </div>
     </div>
   );
 };
