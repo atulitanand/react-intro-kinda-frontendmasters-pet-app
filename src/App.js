@@ -4,6 +4,8 @@ import SearchParams from "./SearchParams";
 import { StrictMode } from "react";
 import Details from "./details";
 import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
+import ThemeContext from "./ThemeContext";
+import { useState } from "react";
 
 const animals = [
   {
@@ -24,24 +26,27 @@ const animals = [
 ];
 
 const App = () => {
+  const theme = useState("#f400ff");
   return (
-    <div>
-      <Router>
-        <header>
-          <Link to="/">
-            <h1>Adopt me!!!</h1>
-          </Link>
-        </header>
-        <Switch>
-          <Route path="/details/:id">
-            <Details />
-          </Route>
-          <Route path="/">
-            <SearchParams />
-          </Route>
-        </Switch>
-      </Router>
-    </div>
+    <ThemeContext.Provider value={theme}>
+      <div>
+        <Router>
+          <header>
+            <Link to="/">
+              <h1>Adopt me!!!</h1>
+            </Link>
+          </header>
+          <Switch>
+            <Route path="/details/:id">
+              <Details />
+            </Route>
+            <Route path="/">
+              <SearchParams />
+            </Route>
+          </Switch>
+        </Router>
+      </div>
+    </ThemeContext.Provider>
   );
 };
 

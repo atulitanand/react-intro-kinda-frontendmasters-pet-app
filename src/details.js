@@ -1,6 +1,8 @@
 import { Component } from "react";
 import { withRouter } from "react-router";
 import Carousel from "./Carousel";
+import ErrorBounday from "./ErrorBoundary";
+import ThemeContext from "./ThemeContext";
 class Details extends Component {
   // constructor() {
   //   super(); // need to be called because react wants constructor of Component class
@@ -33,7 +35,6 @@ class Details extends Component {
     if (this.state.loading) {
       return <h2>loading...</h2>;
     }
-
     const { animal, breed, city, state, description, name, images } =
       this.state;
     return (
@@ -42,12 +43,33 @@ class Details extends Component {
         <div>
           <h1>{name}</h1>
           <h2>{`${animal} - ${breed} - ${city}, ${state}`}</h2>
-          <button>Adopt {name}</button>
+          <ThemeContext.Consumer>
+            {([theme]) => (
+              <button style={{ backgroundColor: theme }}>Adopt {name}</button>
+            )}
+          </ThemeContext.Consumer>
           <p>{description}</p>
         </div>
       </div>
     );
   }
 }
+
+const DetailsWithRounter = withRouter(Details);
+/*
+// this was code before adding error boundary
 // this with router will pass all that values in the details
-export default withRouter(Details);
+// export default withRouter(Details);
+*/
+
+/**
+ * if we have used it like wrapped the returning part with it then it won't have caught the errors that may occur in the methods of the class so we made another component that will wrap while thing and then returned the combined element
+ * @returns Combined element with error boundary
+ */
+export default function DetailsWithErrorBoundary() {
+  return (
+    <ErrorBounday>
+      <DetailsWithRounter />
+    </ErrorBounday>
+  );
+}
