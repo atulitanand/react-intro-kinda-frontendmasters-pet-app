@@ -144,3 +144,15 @@ Wrap <App/> component in <StrictMode></StrictMode>
 - [Chrome](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en)
 - [Firefox](https://addons.mozilla.org/en-US/firefox/addon/react-devtools/)
 - [Edge](https://microsoftedge.microsoft.com/addons/detail/react-developer-tools/gpphkfbcpidddadnkolkpfckpihlkkil)
+
+## React [Router](https://btholt.github.io/complete-intro-to-react-v6/react-router)
+
+- Here we are doing v5
+
+```powershell
+>>> npm install react-router-dom@5.2.0
+# There is also a version for react-native so make sure you do specify -dom
+```
+
+See how react router matches its path
+React Router does partial matches. The URL `/teachers/jem/young` will match the paths `/`, `/teachers`, `/teachers/jem` and `/teachers/jem/young`. It will not match `/young`, `/jem/young`, or `/teachers/young`.
