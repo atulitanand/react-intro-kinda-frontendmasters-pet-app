@@ -3,6 +3,7 @@ import { withRouter } from "react-router";
 import Carousel from "./Carousel";
 import ErrorBounday from "./ErrorBoundary";
 import ThemeContext from "./ThemeContext";
+import Modal from "./Modal";
 class Details extends Component {
   // constructor() {
   //   super(); // need to be called because react wants constructor of Component class
@@ -12,6 +13,7 @@ class Details extends Component {
   // }
   state = {
     loading: true,
+    showModal: false,
   };
 
   async componentDidMount() {
@@ -31,11 +33,18 @@ class Details extends Component {
     );
   }
 
+  // for toggling modal
+  toggleModal = () => this.setState({ showModal: !this.state.showModal });
+  // adopt - what to do if they adopt it
+  adopt = () => {
+    window.location = "https://bit.ly/pet-adopt";
+  };
+
   render() {
     if (this.state.loading) {
       return <h2>loading...</h2>;
     }
-    const { animal, breed, city, state, description, name, images } =
+    const { animal, breed, city, state, description, name, images, showModal } =
       this.state;
     return (
       <div className="details">
@@ -45,10 +54,26 @@ class Details extends Component {
           <h2>{`${animal} - ${breed} - ${city}, ${state}`}</h2>
           <ThemeContext.Consumer>
             {([theme]) => (
-              <button style={{ backgroundColor: theme }}>Adopt {name}</button>
+              <button
+                onClick={this.toggleModal}
+                style={{ backgroundColor: theme }}
+              >
+                Adopt {name}
+              </button>
             )}
           </ThemeContext.Consumer>
           <p>{description}</p>
+          {showModal ? (
+            <Modal>
+              <div>
+                <h2>Would you like to adopt {name}?</h2>
+                <div className="buttons">
+                  <button onClick={this.adopt}>Yes</button>
+                  <button onClick={this.toggleModal}>No</button>
+                </div>
+              </div>
+            </Modal>
+          ) : null}
         </div>
       </div>
     );
