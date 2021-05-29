@@ -29,3 +29,5 @@ const Modal = ({ children }) => {
 
 // this is my reusable model component
 export default Modal;
+
+
