@@ -33,14 +33,14 @@ const SearchParams = () => {
       if (breed) {
         attr = attr.concat(`&breed=${breed}`);
       }
-      console.log("attr", attr);
+      
       return attr;
     })();
     const url = `http://pets-v2.dev-apis.com/pets?${attributes}`;
     const res = await fetch(url);
     const json = await res.json();
     setPets(json.pets);
-    console.log(json.pets);
+    
   }
 
   return (
